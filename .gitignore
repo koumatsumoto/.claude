@@ -1,0 +1,30 @@
+# ===== 個人情報・機密情報 =====
+.credentials.json
+settings.json
+settings.local.json
+
+# ===== 個人ログ・キャッシュ =====
+history.jsonl
+stats-cache.json
+cache/
+
+# ===== セッション固有データ =====
+session-env/
+file-history/
+todos/
+shell-snapshots/
+debug/
+downloads/
+plugins/
+projects/
+
+# ===== IDE/エディタ =====
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ===== OS固有 =====
+.DS_Store
+Thumbs.db
