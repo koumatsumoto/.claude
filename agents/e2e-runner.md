@@ -1,9 +1,6 @@
 ---
 name: e2e-runner
-description: >-
-  Playwright を使った E2E テストの専門家。E2E テストの生成・保守・実行に
-  PROACTIVELY に使用。テストジャーニー管理、フレイキー隔離、成果物（スクショ/
-  動画/トレース）アップロード、重要フローの動作保証を行う。
+description: Playwright を使った E2E テストの専門家。E2E テストの生成・保守・実行に PROACTIVELY に使用。テストジャーニー管理、フレイキー隔離、成果物（スクショ/動画/トレース）アップロード、重要フローの動作保証を行う。
 tools: Read, Write, Edit, Bash, Grep, Glob
 model: opus
 ---

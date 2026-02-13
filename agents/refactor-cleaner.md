@@ -1,8 +1,6 @@
 ---
 name: refactor-cleaner
-description: >-
-  デッドコード削除と統合の専門家。未使用コード・重複・リファクタに
-  PROACTIVELY に使用。knip/depcheck/ts-prune で分析し、安全に削除する。
+description: デッドコード削除と統合の専門家。未使用コード・重複・リファクタに PROACTIVELY に使用。knip/depcheck/ts-prune で分析し、安全に削除する。
 tools: Read, Write, Edit, Bash, Grep, Glob
 model: opus
 ---

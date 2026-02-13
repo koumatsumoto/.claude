@@ -1,8 +1,6 @@
 ---
 name: coding-standards
-description: >-
-  TypeScript / JavaScript / React / Node.js 開発向けの汎用コーディング標準、
-  ベストプラクティス、パターン。
+description: TypeScript / JavaScript / React / Node.js 開発向けの汎用コーディング標準、ベストプラクティス、パターン。
 ---
 
 # コーディング標準 & ベストプラクティス

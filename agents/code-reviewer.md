@@ -1,8 +1,6 @@
 ---
 name: code-reviewer
-description: >-
-  コードレビューの専門家。品質・セキュリティ・保守性を積極的にレビューする。
-  コードを書いた/修正した直後に使用。全てのコード変更で MUST BE USED。
+description: コードレビューの専門家。品質・セキュリティ・保守性を積極的にレビューする。コードを書いた/修正した直後に使用。全てのコード変更で MUST BE USED。
 tools: Read, Grep, Glob, Bash
 model: opus
 ---

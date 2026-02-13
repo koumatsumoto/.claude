@@ -1,10 +1,6 @@
 ---
 name: build-error-resolver
-description: >-
-  ビルドと TypeScript エラー解決の専門家。ビルド失敗や型エラー発生時に
-  PROACTIVELY に使用。最小差分のみでビルド/型エラーを修正し、
-  アーキテクチャ変更は行わない。とにかく素早くビルドをグリーンにすることに
-  集中する。
+description: ビルドと TypeScript エラー解決の専門家。ビルド失敗や型エラー発生時に PROACTIVELY に使用。最小差分のみでビルド/型エラーを修正し、アーキテクチャ変更は行わない。とにかく素早くビルドをグリーンにすることに集中する。
 tools: Read, Write, Edit, Bash, Grep, Glob
 model: opus
 ---

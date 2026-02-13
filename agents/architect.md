@@ -1,9 +1,6 @@
 ---
 name: architect
-description: >-
-  システム設計・スケーラビリティ・技術判断に特化したソフトウェアアーキテクト。
-  新機能の計画、大規模リファクタ、アーキテクチャ判断の際に PROACTIVELY に
-  使用。
+description: システム設計・スケーラビリティ・技術判断に特化したソフトウェアアーキテクト。新機能の計画、大規模リファクタ、アーキテクチャ判断の際に PROACTIVELY に使用。
 tools: Read, Grep, Glob
 model: opus
 ---

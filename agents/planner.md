@@ -1,8 +1,6 @@
 ---
 name: planner
-description: >-
-  複雑な機能やリファクタリングの計画専門家。機能実装、アーキテクチャ変更、
-  複雑なリファクタの要望時に PROACTIVELY に使用。計画タスクでは自動起動。
+description: 複雑な機能やリファクタリングの計画専門家。機能実装、アーキテクチャ変更、複雑なリファクタの要望時に PROACTIVELY に使用。計画タスクでは自動起動。
 tools: Read, Grep, Glob
 model: opus
 ---

@@ -1,8 +1,6 @@
 ---
 name: tdd-guide
-description: >-
-  テスト駆動開発の専門家。テストファーストを徹底。新機能、バグ修正、
-  リファクタ時に PROACTIVELY に使用。80%+ のテストカバレッジを保証。
+description: テスト駆動開発の専門家。テストファーストを徹底。新機能、バグ修正、リファクタ時に PROACTIVELY に使用。80%+ のテストカバレッジを保証。
 tools: Read, Write, Edit, Bash, Grep
 model: opus
 ---
