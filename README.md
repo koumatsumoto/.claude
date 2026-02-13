@@ -33,10 +33,10 @@ cp ~/.claude.backup/settings.json ~/.claude/
 
 ```bash
 # エージェントのみ使用
-cp -r ~/path/to/.claude/agents ~/.claude/
+cp -r ./agents ~/.claude/
 
 # すべてコピー
-cp -r ~/path/to/.claude/{agents,commands,rules,skills,CLAUDE.md} ~/.claude/
+cp -r ./{agents,commands,rules,skills,CLAUDE.md} ~/.claude/
 ```
 
 ### 方法3: Git で管理
@@ -83,19 +83,19 @@ git pull origin main
 
 ## スキル一覧
 
-| スキル                | 説明                                   |
-| --------------------- | -------------------------------------- |
-| tdd-workflow          | テスト駆動開発ワークフロー             |
-| backend-patterns      | バックエンドアーキテクチャパターン     |
-| frontend-patterns     | フロントエンド開発パターン             |
-| security-review       | セキュリティレビューチェックリスト     |
-| coding-standards      | TypeScript/JavaScript コーディング規約 |
-| clickhouse-io         | ClickHouse 最適化パターン              |
-| continuous-learning   | パターン抽出と学習                     |
-| strategic-compact     | 戦略的コンテキスト圧縮                 |
-| verification-loop     | 検証ループパターン                     |
-| eval-harness          | 評価ハーネス                           |
-| project-guidelines    | プロジェクトガイドライン例             |
+| スキル              | 説明                                   |
+| ------------------- | -------------------------------------- |
+| tdd-workflow        | テスト駆動開発ワークフロー             |
+| backend-patterns    | バックエンドアーキテクチャパターン     |
+| frontend-patterns   | フロントエンド開発パターン             |
+| security-review     | セキュリティレビューチェックリスト     |
+| coding-standards    | TypeScript/JavaScript コーディング規約 |
+| clickhouse-io       | ClickHouse 最適化パターン              |
+| continuous-learning | パターン抽出と学習                     |
+| strategic-compact   | 戦略的コンテキスト圧縮                 |
+| verification-loop   | 検証ループパターン                     |
+| eval-harness        | 評価ハーネス                           |
+| project-guidelines  | プロジェクトガイドライン例             |
 
 ## セキュリティ
 

@@ -1,10 +1,15 @@
+---
+paths:
+  - "**/*.{ts,tsx}"
+---
+
 # コーディングスタイル
 
 ## イミュータビリティ（重要）
 
 **常に新しいオブジェクトを作成し、決してミューテーションしないこと。**
 
-```javascript
+```ts
 // NG: ミューテーション
 function updateUser(user, name) {
   user.name = name; // MUTATION!
@@ -33,7 +38,7 @@ function updateUser(user, name) {
 
 **常に包括的にエラー処理すること。**
 
-```typescript
+```ts
 try {
   const result = await riskyOperation();
   return result;
@@ -47,7 +52,7 @@ try {
 
 **常にユーザー入力を検証すること。**
 
-```typescript
+```ts
 import { z } from "zod";
 
 const schema = z.object({
