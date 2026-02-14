@@ -1,127 +1,108 @@
-# Claude Code Configuration
+# agent-config
 
-Claude Code の再利用可能な設定ファイル集。エージェント、コマンド、ルール、スキルを含みます。
+Claude Code と OpenAI Codex CLI の設定を同じリポジトリで管理するための構成です。
+
+## 対応CLI
+
+- Claude Code
+- OpenAI Codex CLI
+
+## 運用ポリシー
+
+- **編集元は Claude-first**: このリポジトリ内の `CLAUDE.md` / `agents/` / `commands/` / `rules/` / `skills/` を編集する
+- Codex 側の `~/.codex/AGENTS.md` は反映先。**直接編集しない**
+- 二重管理を避けるため、インストール時はリンク優先（必要ならコピーへフォールバック）
 
 ## ディレクトリ構造
 
-- **agents/** - 特化型エージェント（planner, architect, tdd-guide など）
-- **commands/** - カスタムコマンド（/plan, /tdd, /code-review など）
-- **rules/** - コーディング規約（security, coding-style, agents）
-- **skills/** - 再利用可能なスキル（coding-standards, security-review など）
+- `CLAUDE.md` - 共通エージェント方針（Claude と Codex AGENTS で共用）
+- `agents/` - Claude 用エージェント定義
+- `commands/` - Claude 用コマンド定義
+- `rules/` - ルール定義
+- `skills/` - 共通スキル定義（Claude / Codex で共用）
+- `config.toml` - Codex CLI 用の最小設定テンプレート
+- `install.sh` - `~/` 配下へ反映するインストールスクリプト
 
-## 使い方
+## セットアップ
 
-### 方法1: シンボリックリンク（推奨）
-
-既存の `~/.claude` をバックアップし、このリポジトリをリンク:
-
-```bash
-# 既存設定のバックアップ
-mv ~/.claude ~/.claude.backup
-
-# このリポジトリをクローン
-git clone <repository-url> ~/.claude
-
-# 個人設定を復元（必要に応じて）
-cp ~/.claude.backup/.credentials.json ~/.claude/
-cp ~/.claude.backup/settings.json ~/.claude/
-```
-
-### 方法2: 選択的コピー
-
-必要なファイルのみコピー:
+推奨コマンド:
 
 ```bash
-# エージェントのみ使用
-cp -r ./agents ~/.claude/
-
-# すべてコピー
-cp -r ./{agents,commands,rules,skills,CLAUDE.md} ~/.claude/
+bash install.sh --target all --mode link --fallback-copy
 ```
 
-### 方法3: Git で管理
+このコマンドは以下を反映します:
 
-`~/.claude` を Git リポジトリとして管理:
+- `~/.claude/`:
+  - `CLAUDE.md`
+  - `agents/`
+  - `commands/`
+  - `rules/`
+  - `skills/`
+- `~/.codex/`:
+  - `AGENTS.md`（`CLAUDE.md` から反映）
+  - `config.toml`（`config.toml` から反映）
+- `~/.agents/`:
+  - `skills/`（Codex Skills 用）
+
+## インストールオプション
 
 ```bash
-cd ~/.claude
-git init
-git remote add origin <repository-url>
-git pull origin main
-
-# .gitignore で個人情報を除外
+bash install.sh [--target claude|codex|all] [--mode link|copy] [--fallback-copy]
 ```
 
-## カスタマイズ
+- `--target`: 反映対象（デフォルト `all`）
+- `--mode`: `link` または `copy`（デフォルト `link`）
+- `--fallback-copy`: `link` 失敗時に `copy` へフォールバック
 
-### CLAUDE.md
+## OS別メモ
 
-`CLAUDE.md` はユーザーレベルのグローバル設定です。
-自分のワークフローに合わせて編集してください。
+- Ubuntu/Linux:
+  - 通常は `--mode link` で問題なし
+- Windows (Git Bash):
+  - シンボリックリンク権限が不足する環境があるため、`--fallback-copy` の併用を推奨
 
-### 個人設定の追加
+## 反映先マッピング
 
-以下のファイルは `.gitignore` で除外されているため、ローカルで作成できます:
+| Repository Source | Destination |
+| --- | --- |
+| `CLAUDE.md` | `~/.claude/CLAUDE.md` |
+| `agents/` | `~/.claude/agents/` |
+| `commands/` | `~/.claude/commands/` |
+| `rules/` | `~/.claude/rules/` |
+| `skills/` | `~/.claude/skills/` |
+| `CLAUDE.md` | `~/.codex/AGENTS.md` |
+| `config.toml` | `~/.codex/config.toml` |
+| `skills/` | `~/.agents/skills/` |
 
-- `.credentials.json` - OAuth トークン
-- `settings.json` - ローカルパス、権限設定
-- `settings.local.json` - 追加のローカル設定
+## 公式仕様（参照元）
 
-## エージェント一覧
+- Claude Code
+  - Settings: `https://docs.anthropic.com/en/docs/claude-code/settings`
+  - Memory (`CLAUDE.md`): `https://docs.anthropic.com/en/docs/claude-code/memory`
+  - Slash Commands: `https://docs.anthropic.com/en/docs/claude-code/slash-commands`
+  - Sub-agents: `https://docs.anthropic.com/en/docs/claude-code/sub-agents`
+- OpenAI Codex CLI
+  - Config: `https://developers.openai.com/codex/config`
+  - Config Reference: `https://developers.openai.com/codex/config#reference`
+  - AGENTS.md: `https://developers.openai.com/codex/customization#agentsmd`
+  - Skills: `https://developers.openai.com/codex/customization#skills`
+  - CLI Overview: `https://developers.openai.com/codex/cli`
 
-| エージェント         | 目的                         |
-| -------------------- | ---------------------------- |
-| planner              | 実装計画                     |
-| architect            | システム設計とアーキテクチャ |
-| tdd-guide            | テスト駆動開発               |
-| code-reviewer        | 品質/セキュリティレビュー    |
-| security-reviewer    | 脆弱性分析                   |
-| build-error-resolver | ビルドエラー解決             |
-| e2e-runner           | Playwright E2E テスト        |
-| refactor-cleaner     | デッドコード清掃             |
-| doc-updater          | ドキュメント更新             |
+## 既存ファイルの保護
 
-## コマンド一覧
-
-| コマンド        | 目的                                 |
-| --------------- | ------------------------------------ |
-| `/plan`         | 実装前の計画作成                     |
-| `/tdd`          | テスト駆動での実装                   |
-| `/code-review`  | 変更内容の品質レビュー               |
-| `/build-fix`    | ビルド/型エラーの段階的修正          |
-| `/test-coverage`| テストカバレッジの確認               |
-| `/refactor-clean` | 安全なリファクタと不要コード整理   |
-| `/orchestrate`  | 複数エージェントのワークフロー実行   |
-| `/learn`        | セッションから学習パターン抽出       |
-| `/commit`       | Conventional Commits 形式でコミット |
+`install.sh` は同名ファイル/ディレクトリが既に存在する場合、  
+`*.bak.<timestamp>` へ退避してから置換します。
 
 ## スキル一覧
 
-| スキル              | 説明                                   |
-| ------------------- | -------------------------------------- |
-| coding-standards    | TypeScript/JavaScript コーディング規約 |
-| security-review     | セキュリティレビューチェックリスト     |
-| continuous-learning | パターン抽出と学習                     |
-| strategic-compact   | 戦略的コンテキスト圧縮                 |
-
-## セキュリティ
-
-このリポジトリには **機密情報は含まれていません**:
-
-- 認証トークンなし
-- 個人ログなし
-- ローカルパスなし
-
-`.gitignore` により、個人情報が誤ってコミットされることを防ぎます。
+| スキル | 説明 |
+| --- | --- |
+| `coding-standards` | TypeScript/JavaScript コーディング規約 |
+| `security-review` | セキュリティレビューチェックリスト |
+| `continuous-learning` | パターン抽出と学習 |
+| `strategic-compact` | 戦略的コンテキスト圧縮 |
 
 ## ライセンス
 
-MIT License - 詳細は [LICENSE](LICENSE) ファイルを参照してください。
-
-## コントリビューション
-
-改善提案は Issue または Pull Request でお願いします。
-
----
-
-**哲学**: Agent-first 設計、並列実行、行動前の計画、テスト先行、常にセキュリティ。
+MIT License。詳細は `LICENSE` を参照。
