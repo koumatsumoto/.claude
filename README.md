@@ -28,7 +28,7 @@ Claude Code と OpenAI Codex CLI の設定を同じリポジトリで管理す�
 推奨コマンド:
 
 ```bash
-bash install.sh --target all --mode link --fallback-copy
+bash install.sh
 ```
 
 このコマンドは以下を反映します:
@@ -45,22 +45,14 @@ bash install.sh --target all --mode link --fallback-copy
 - `~/.agents/`:
   - `skills/`（Codex Skills 用）
 
-## インストールオプション
-
-```bash
-bash install.sh [--target claude|codex|all] [--mode link|copy] [--fallback-copy]
-```
-
-- `--target`: 反映対象（デフォルト `all`）
-- `--mode`: `link` または `copy`（デフォルト `link`）
-- `--fallback-copy`: `link` 失敗時に `copy` へフォールバック
+`install.sh` は引数なしで、Claude/Codex の両方を一括反映します。
 
 ## OS別メモ
 
 - Ubuntu/Linux:
-  - 通常は `--mode link` で問題なし
+  - 通常は symlink で反映される
 - Windows (Git Bash):
-  - シンボリックリンク権限が不足する環境があるため、`--fallback-copy` の併用を推奨
+  - シンボリックリンク権限が不足する環境では自動でコピーへフォールバック
 
 ## 反映先マッピング
 

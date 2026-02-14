@@ -1,7 +1,4 @@
-# ユーザーレベル CLAUDE.md
-
-このファイルは Claude Code 用のメモリ設定であり、agent-config では Codex CLI の
-`~/.codex/AGENTS.md` としても共通利用する。
+# AI Agent Guideline
 
 ## 基本思想
 
