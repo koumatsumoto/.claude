@@ -108,7 +108,7 @@ Agent (planner):
 計画後:
 
 - `/tdd` でテスト駆動実装
-- ビルドエラーは `/build-and-fix`
+- ビルドエラーは `/build-fix`
 - `/code-review` でレビュー
 
 ## 関連エージェント

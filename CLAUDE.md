@@ -26,6 +26,12 @@
 
 ## 個人設定
 
+### リポジトリインデックス
+
+- commands: `plan`, `tdd`, `code-review`, `build-fix`, `test-coverage`, `refactor-clean`, `orchestrate`, `learn`, `commit`
+- rules: `security.md`, `coding-style.md`, `agents.md`
+- skills: `coding-standards`, `security-review`, `continuous-learning`, `strategic-compact`
+
 ### コードスタイル
 
 - コード、コメント、ドキュメントに絵文字禁止

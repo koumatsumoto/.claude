@@ -1,6 +1,6 @@
 ---
 name: doc-updater
-description: ドキュメントとコーデマップの専門家。/update-codemaps と /update-docs を実行し、docs/CODEMAPS/* を生成、README やガイドを更新するために PROACTIVELY に使用。
+description: ドキュメントとコーデマップの専門家。README やガイドを最新化し、必要に応じて docs/CODEMAPS/* を生成・更新するために PROACTIVELY に使用。
 tools: Read, Write, Edit, Bash, Grep, Glob
 model: opus
 ---

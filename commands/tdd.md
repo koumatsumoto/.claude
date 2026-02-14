@@ -301,7 +301,7 @@ Coverage: 100% ✅ (Target: 80%)
 - 外部サービス呼び出し
 - React コンポーネントとフック
 
-**E2E テスト**（`/e2e` を使用）:
+**E2E テスト**（`e2e-runner` エージェントを使用）:
 - 重要ユーザーフロー
 - 複数ステップ
 - フルスタック統合
@@ -329,7 +329,7 @@ RED を省略しない。テストより先にコードを書かない。
 
 - 先に `/plan` で計画
 - `/tdd` でテスト駆動実装
-- ビルドエラー時は `/build-and-fix`
+- ビルドエラー時は `/build-fix`
 - `/code-review` でレビュー
 - `/test-coverage` でカバレッジ確認
 
@@ -337,7 +337,4 @@ RED を省略しない。テストより先にコードを書かない。
 
 このコマンドは以下の `tdd-guide` エージェントを使用:
 `~/.claude/agents/tdd-guide.md`
-
-必要に応じて `tdd-workflow` スキルも参照:
-`~/.claude/skills/tdd-workflow/`
 ```

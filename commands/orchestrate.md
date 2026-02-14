@@ -21,7 +21,7 @@ planner -> tdd-guide -> code-reviewer -> security-reviewer
 バグ調査と修正ワークフロー:
 
 ```text
-explorer -> tdd-guide -> code-reviewer
+build-error-resolver -> tdd-guide -> code-reviewer
 ```
 
 ### refactor
