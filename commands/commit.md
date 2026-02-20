@@ -4,13 +4,13 @@ description: 変更内容を git commit する。Conventional Commits 形式で�
 
 # Commit コマンド
 
-変更内容を分析し、Conventional Commits 形式でコミットメッセージを作成して git commit する。
+変更差分を確認し、Conventional Commits 形式でコミットメッセージを作成して git commit する。
 
 ## 使い方
 
 `/commit [message]`
 
-- `/commit` - 当初指示から開始した変更内容を確認し、メッセージを作成して git commit する
+- `/commit` - ユーザの指示から開始した変更内容を確認し、メッセージを作成して git commit する
 
 ## Commit Message
 
@@ -58,8 +58,7 @@ feat(auth): JWT トークンのリフレッシュ機能を追加
    - 機密情報を含むファイル
 5. **メッセージ作成**: 変更内容を分析し、上記形式でメッセージを生成
 6. **ステージング**: 対象ファイルを個別に `git add`（`git add -A` は使わない）
-7. **ユーザレビュー**: メッセージをユーザに提示し、承認を得る
-8. **コミット実行**: HEREDOC 形式でコミット
+7. **コミット実行**: HEREDOC 形式でコミット
 
 ```bash
 git commit -m "$(cat <<'EOF'
@@ -76,8 +75,6 @@ type(scope): description
 EOF
 )"
 ```
-
-9. **確認**: `git status` でコミット成功を検証
 
 ## 注意事項
 
