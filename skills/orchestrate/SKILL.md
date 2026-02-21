@@ -16,9 +16,9 @@ argument-hint: "[workflow-type] [task-description]"
 
 ## Preset Workflows
 
-- `feature`: `planner -> tdd-guide -> code-reviewer -> security-reviewer`
-- `bugfix`: `build-error-resolver -> tdd-guide -> code-reviewer`
-- `refactor`: `architect -> tdd-guide -> code-reviewer`
+- `feature`: `planner -> code-reviewer -> security-reviewer`
+- `bugfix`: `build-error-resolver -> code-reviewer`
+- `refactor`: `architect -> code-reviewer`
 - `security`: `security-reviewer -> code-reviewer -> architect`
 
 ## Execution Rules

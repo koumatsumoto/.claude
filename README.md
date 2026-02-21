@@ -90,7 +90,7 @@ bash install.sh
 | スキル | 説明 |
 | --- | --- |
 | `plan` | 実装計画の作成。planner エージェントを起動 |
-| `tdd` | テスト駆動開発ワークフロー。tdd-guide エージェントを起動 |
+| `tdd` | テスト駆動開発ワークフロー |
 | `code-review` | セキュリティ/品質レビュー |
 | `build-fix` | TypeScript/ビルドエラーの段階的修正 |
 | `test-coverage` | テストカバレッジ分析と不足テスト生成 |

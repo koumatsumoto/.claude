@@ -489,7 +489,7 @@ Parameter 'market' implicitly has an 'any' type.
 - リファクタが必要（refactor-cleaner を使う）
 - アーキテクチャ変更が必要（architect を使う）
 - 新機能が必要（planner を使う）
-- テスト失敗（tdd-guide を使う）
+- テスト失敗（テスト実装フローを実施）
 - セキュリティ問題（security-reviewer を使う）
 
 ## ビルドエラーの優先度
