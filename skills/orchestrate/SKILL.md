@@ -23,7 +23,8 @@ argument-hint: "[workflow-type] [task-description]"
 
 ## Execution Rules
 
-1. 前段の出力を要約して次段へ引き継ぐ
+1. 前段の出力を以下の構造で要約し次段へ引き継ぐ:
+   Context / Findings / Files Modified / Open Questions
 2. 独立可能な検証は並列実行する
 3. 各段で未解決事項を明示する
 4. 最後に統合レポートを返す

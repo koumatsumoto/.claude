@@ -33,3 +33,7 @@ disable-model-invocation: true
 - 位置（ファイル + 行）
 - 問題の説明
 - 推奨修正
+
+## References
+
+- `../../rules/coding-style.md` - 品質基準の具体値
