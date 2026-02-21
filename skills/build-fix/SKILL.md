@@ -1,35 +1,32 @@
 ---
 name: build-fix
-description: TypeScript とビルドエラーを段階的に修正する。1回に1エラーずつ安全に修正。
+description: Use when TypeScript or build errors must be resolved safely, one error at a time.
 disable-model-invocation: true
 ---
 
 # Build Fix
 
-TypeScript とビルドエラーを段階的に修正:
+## Use When
 
-1. ビルドを実行: npm run build または pnpm build
+- `npm run build` / `pnpm build` が失敗する
+- TypeScript エラーを段階的に潰したい
 
-2. エラー出力を解析:
-   - ファイルごとに整理
-   - 重大度でソート
+## Workflow
 
-3. 各エラーについて:
-   - エラー文脈を表示（前後 5 行）
-   - 問題を説明
-   - 修正案を提示
-   - 修正を適用
-   - ビルドを再実行
-   - 解決を確認
+1. ビルドを実行して最初のエラーを特定する
+2. 該当箇所の前後文脈を確認して原因を説明する
+3. 最小修正を適用する
+4. ビルドを再実行して同エラー解消を確認する
+5. 次のエラーへ進む
 
-4. 中止条件:
-   - 修正で新たなエラーが出た
-   - 同じエラーが 3 回続く
-   - ユーザーが一時停止を要求
+## Safety Rules
 
-5. サマリを表示:
-   - 修正済みエラー
-   - 残っているエラー
-   - 新規発生エラー
+- 一度に 1 エラーだけ修正する
+- 修正で新規エラーが増えたら原因を説明して停止する
+- 同一エラーが 3 回継続する場合は方針を見直して確認する
 
-安全のため 1 回に 1 エラーずつ修正すること。
+## Output
+
+- 修正済みエラー
+- 未解決エラー
+- 新規発生エラー

@@ -1,153 +1,38 @@
 ---
 name: orchestrate
-description: 複雑なタスク向けのエージェント逐次ワークフロー。feature/bugfix/refactor/security/custom から選択。
+description: Use when a complex task needs a multi-agent workflow across planning, implementation, and review.
 disable-model-invocation: true
 argument-hint: "[workflow-type] [task-description]"
 ---
 
 # Orchestrate
 
-複雑なタスク向けの、エージェント逐次ワークフロー。
+複雑なタスクを、目的別のエージェント列で実行する。
 
-## 使い方
+## Use When
 
-`/orchestrate $ARGUMENTS`
+- 複数フェーズ（設計・実装・レビュー）を跨ぐ
+- 単一エージェントでは見落としが出やすい
 
-## ワークフロー種別
+## Preset Workflows
 
-### feature
+- `feature`: `planner -> tdd-guide -> code-reviewer -> security-reviewer`
+- `bugfix`: `build-error-resolver -> tdd-guide -> code-reviewer`
+- `refactor`: `architect -> tdd-guide -> code-reviewer`
+- `security`: `security-reviewer -> code-reviewer -> architect`
 
-フル機能実装ワークフロー:
+## Execution Rules
 
-```text
-planner -> tdd-guide -> code-reviewer -> security-reviewer
-```
+1. 前段の出力を要約して次段へ引き継ぐ
+2. 独立可能な検証は並列実行する
+3. 各段で未解決事項を明示する
+4. 最後に統合レポートを返す
 
-### bugfix
+## Final Report
 
-バグ調査と修正ワークフロー:
-
-```text
-build-error-resolver -> tdd-guide -> code-reviewer
-```
-
-### refactor
-
-安全なリファクタリングワークフロー:
-
-```text
-architect -> code-reviewer -> tdd-guide
-```
-
-### security
-
-セキュリティ重視レビュー:
-
-```text
-security-reviewer -> code-reviewer -> architect
-```
-
-### custom
-
-カスタムエージェント列:
-
-```text
-/orchestrate custom "architect,tdd-guide,code-reviewer" "Redesign caching layer"
-```
-
-## 実行パターン
-
-ワークフロー内の各エージェントについて:
-
-1. **エージェントを起動**（前エージェントの文脈を渡す）
-2. **出力を収集**して引き継ぎ文書を作成
-3. **次のエージェントへ引き継ぐ**
-4. **結果を集約**し最終レポートを生成
-
-## 引き継ぎ文書の形式
-
-エージェント間で以下の文書を作成:
-
-```markdown
-## HANDOFF: [previous-agent] -> [next-agent]
-
-### Context
-
-[Summary of what was done]
-
-### Findings
-
-[Key discoveries or decisions]
-
-### Files Modified
-
-[List of files touched]
-
-### Open Questions
-
-[Unresolved items for next agent]
-
-### Recommendations
-
-[Suggested next steps]
-```
-
-## 並列実行
-
-独立チェックは並列で実行:
-
-```markdown
-### Parallel Phase
-
-Run simultaneously:
-
-- code-reviewer (quality)
-- security-reviewer (security)
-- architect (design)
-
-### Merge Results
-
-Combine outputs into single report
-```
-
-## 最終レポート形式
-
-```text
-ORCHESTRATION REPORT
-====================
-Workflow: [type]
-Task: [description]
-Agents: [agent chain]
-
-SUMMARY
--------
-[One paragraph summary]
-
-AGENT OUTPUTS
--------------
-[Each agent's summary]
-
-FILES CHANGED
--------------
-[List all files modified]
-
-TEST RESULTS
-------------
-[Test pass/fail summary]
-
-SECURITY STATUS
----------------
-[Security findings]
-
-RECOMMENDATION
---------------
-[SHIP / NEEDS WORK / BLOCKED]
-```
-
-## ヒント
-
-1. 複雑な機能は **planner** から開始
-2. マージ前に **code-reviewer** を必ず含める
-3. 認証/決済/PII は **security-reviewer** を使う
-4. 引き継ぎは簡潔に - 次のエージェントに必要な情報だけ
-5. エージェント間で必要なら検証を挟む
+- 実行したワークフロー
+- 主要判断
+- 変更ファイル
+- テスト結果
+- セキュリティ所見
+- 推奨ステータス（SHIP / NEEDS WORK / BLOCKED）

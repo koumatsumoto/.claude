@@ -1,52 +1,69 @@
 #!/bin/bash
-# Strategic Compact Suggester
-# Runs on PreToolUse or periodically to suggest manual compaction at logical intervals
-#
-# Why manual over auto-compact:
-# - Auto-compact happens at arbitrary points, often mid-task
-# - Strategic compacting preserves context through logical phases
-# - Compact after exploration, before execution
-# - Compact after completing a milestone, before starting next
-#
-# Hook config (in ~/.claude/settings.json):
-# {
-#   "hooks": {
-#     "PreToolUse": [{
-#       "matcher": "Edit|Write",
-#       "hooks": [{
-#         "type": "command",
-#         "command": "~/.claude/skills/strategic-compact/suggest-compact.sh"
-#       }]
-#     }]
-#   }
-# }
-#
-# Criteria for suggesting compact:
-# - Session has been running for extended period
-# - Large number of tool calls made
-# - Transitioning from research/exploration to implementation
-# - Plan has been finalized
+set -euo pipefail
 
-# Track tool call count (increment in a temp file)
-COUNTER_FILE="/tmp/claude-tool-count-$$"
 THRESHOLD=${COMPACT_THRESHOLD:-50}
+REMINDER_INTERVAL=${COMPACT_REMINDER_INTERVAL:-25}
+STALE_SECONDS=${COMPACT_COUNTER_STALE_SECONDS:-21600}
 
-# Initialize or increment counter
+hash_text() {
+  if command -v sha1sum >/dev/null 2>&1; then
+    printf '%s' "$1" | sha1sum | awk '{print $1}'
+    return
+  fi
+
+  if command -v shasum >/dev/null 2>&1; then
+    printf '%s' "$1" | shasum | awk '{print $1}'
+    return
+  fi
+
+  printf '%s' "$1" | md5sum | awk '{print $1}'
+}
+
+session_source="${CLAUDE_SESSION_ID:-${CLAUDE_TRANSCRIPT_PATH:-${PWD}}}"
+session_key=$(hash_text "$session_source")
+COUNTER_FILE="/tmp/claude-tool-count-${session_key}"
+
+get_mtime() {
+  local file="$1"
+
+  if stat -c %Y "$file" >/dev/null 2>&1; then
+    stat -c %Y "$file"
+    return
+  fi
+
+  if stat -f %m "$file" >/dev/null 2>&1; then
+    stat -f %m "$file"
+    return
+  fi
+
+  date +%s
+}
+
 if [ -f "$COUNTER_FILE" ]; then
-  count=$(cat "$COUNTER_FILE")
-  count=$((count + 1))
-  echo "$count" > "$COUNTER_FILE"
-else
-  echo "1" > "$COUNTER_FILE"
-  count=1
+  now=$(date +%s)
+  last_modified=$(get_mtime "$COUNTER_FILE")
+
+  if [ $((now - last_modified)) -gt "$STALE_SECONDS" ]; then
+    rm -f "$COUNTER_FILE"
+  fi
 fi
 
-# Suggest compact after threshold tool calls
+count=1
+if [ -f "$COUNTER_FILE" ]; then
+  previous=$(cat "$COUNTER_FILE" 2>/dev/null || echo "0")
+
+  if [[ "$previous" =~ ^[0-9]+$ ]]; then
+    count=$((previous + 1))
+  fi
+fi
+
+printf '%s\n' "$count" > "$COUNTER_FILE"
+
 if [ "$count" -eq "$THRESHOLD" ]; then
-  echo "[StrategicCompact] $THRESHOLD tool calls reached - consider /compact if transitioning phases" >&2
+  echo "[StrategicCompact] ${THRESHOLD} tool calls reached - consider /compact at this phase boundary" >&2
+  exit 0
 fi
 
-# Suggest at regular intervals after threshold
-if [ "$count" -gt "$THRESHOLD" ] && [ $((count % 25)) -eq 0 ]; then
-  echo "[StrategicCompact] $count tool calls - good checkpoint for /compact if context is stale" >&2
+if [ "$count" -gt "$THRESHOLD" ] && [ $((count % REMINDER_INTERVAL)) -eq 0 ]; then
+  echo "[StrategicCompact] ${count} tool calls - consider /compact if context is stale" >&2
 fi

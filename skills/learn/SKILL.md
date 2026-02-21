@@ -1,81 +1,56 @@
 ---
 name: learn
-description: 現在のセッションを分析し、再利用可能パターンを抽出してスキルとして保存する。
+description: Use when a session produced a reusable troubleshooting or implementation pattern worth saving as a skill.
 disable-model-invocation: true
 ---
 
 # Learn
 
-現在のセッションを分析し、スキルとして保存すべきパターンを抽出する。
+現在のセッションから、再利用価値のあるパターンを手動抽出する。
 
-## トリガー
+## Use When
 
-非自明な問題を解決したタイミングで、セッション中いつでも `/learn` を実行する。
+- 非自明な障害を解決した
+- 今後も繰り返し発生し得る問題を整理したい
+- チーム内で再利用可能な手順を残したい
 
-## 抽出対象
+## Extraction Criteria
 
-以下を探す:
+- 問題の再現条件が明確
+- 根本原因が説明できる
+- 解決手順が一般化できる
+- 将来の作業時間を削減できる
 
-1. **エラー解決パターン**
-   - どんなエラーが起きたか
-   - 根本原因は何か
-   - 何が解決したか
-   - 類似エラーに再利用できるか
+## Do Not Extract
 
-2. **デバッグ技法**
-   - 非自明なデバッグ手順
-   - 有効だったツール組み合わせ
-   - 診断パターン
+- 単純なタイポ修正
+- 一度限りの外部障害
+- 背景説明だけで手順化できない内容
 
-3. **回避策**
-   - ライブラリの癖
-   - API 制約
-   - バージョン特有の修正
-
-4. **プロジェクト固有のパターン**
-   - 発見したコードベースの慣習
-   - 行ったアーキテクチャ判断
-   - 連携パターン
-
-## 出力形式
-
-`~/.claude/skills/learned/[pattern-name]/SKILL.md` に作成:
+## Output Template
 
 ```markdown
 ---
-name: [pattern-name]
-description: [When this pattern applies and what it solves]
+name: <pattern-name>
+description: <when to use and what it solves>
 ---
 
-# [Descriptive Pattern Name]
-
-**Extracted:** [Date]
-**Context:** [Brief description of when this applies]
+# <Pattern Title>
 
 ## Problem
+<reproducible problem>
 
-[What problem this solves - be specific]
+## Root Cause
+<actual cause>
 
 ## Solution
+<repeatable steps>
 
-[The pattern/technique/workaround]
-
-## Example
-
-[Code example if applicable]
+## Verification
+<how to confirm success>
 ```
 
-## 進め方
+## Save Location
 
-1. セッションから抽出可能なパターンを洗い出す
-2. 最も価値の高い/再利用可能な気づきを選ぶ
-3. スキルファイルの下書きを作成
-4. 保存前にユーザーへ確認
-5. `~/.claude/skills/learned/` に保存
-
-## 注意
-
-- 些細な修正（タイポ、単純な構文ミス）は抽出しない
-- 一度きりの問題（特定の API 障害など）は抽出しない
-- 将来の時間短縮に繋がるパターンに集中
-- 1 スキル 1 パターンに絞る
+- 既定: `<skills-root>/learned/<pattern-name>/SKILL.md`
+- 実運用では `continuous-learning/config.json` の保存先設定に合わせる

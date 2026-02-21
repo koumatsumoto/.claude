@@ -1,37 +1,33 @@
 ---
 name: strategic-compact
-description: 任意の自動コンパクトではなく、論理的な区切りで手動 /compact を提案し、フェーズ間の文脈を保持する。
+description: Use when you want manual compact timing aligned with workflow phases instead of arbitrary auto-compaction.
 ---
 
-# 戦略的コンパクトスキル
+# Strategic Compact
 
-任意の自動コンパクトに頼るのではなく、ワークフロー上の適切なタイミングで手動 `/compact` を提案する。
+コンテキスト圧縮を「任意タイミング」ではなく「論理的区切り」で行うためのスキル。
 
-## なぜ戦略的コンパクト？
+## Use When
 
-自動コンパクトは任意のタイミングで発生する:
+- 探索フェーズが終わって実装に移る
+- 1 つのマイルストーンが完了した
+- 文脈が肥大化し、次フェーズへ切り替えたい
 
-- タスク途中で起きやすく、重要文脈が欠落
-- 論理的な区切りを認識しない
-- 複雑な多段タスクを中断しやすい
+## Recommended Timing
 
-論理境界でのコンパクトは:
+- 調査完了直後（実装開始前）
+- バグ解決直後（次の課題へ移る前）
+- 大きな設計判断の確定直後
 
-- **探索後・実行前** - 調査文脈を圧縮し、実装計画を残す
-- **マイルストーン完了後** - 次フェーズを新鮮な状態で開始
-- **大きな文脈転換前** - これまでの探索を整理して次へ
+## Hook Behavior
 
-## 仕組み
+`suggest-compact.sh` は以下を行う:
 
-`suggest-compact.sh` は PreToolUse（Edit/Write）で実行され、以下を行う:
+1. セッション単位でツール呼び出し回数を追跡
+2. 閾値到達で `/compact` を提案
+3. 以後は一定間隔で再提案
 
-1. **ツール呼び出し追跡** - セッション内のツール呼び出し回数をカウント
-2. **閾値検出** - 設定閾値（デフォルト 50）で提案
-3. **定期リマインド** - 以後 25 回ごとに提案
-
-## フック設定
-
-`~/.claude/settings.json` に追加:
+## Hook Example
 
 ```json
 {
@@ -42,7 +38,7 @@ description: 任意の自動コンパクトではなく、論理的な区切り�
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/skills/strategic-compact/suggest-compact.sh"
+            "command": "<skills-root>/strategic-compact/suggest-compact.sh"
           }
         ]
       }
@@ -51,20 +47,8 @@ description: 任意の自動コンパクトではなく、論理的な区切り�
 }
 ```
 
-## 設定
+## Environment Variables
 
-環境変数:
-
-- `COMPACT_THRESHOLD` - 初回提案までのツール回数（デフォルト 50）
-
-## ベストプラクティス
-
-1. **計画の後にコンパクト** - 計画が確定したら整理
-2. **デバッグ後にコンパクト** - 解決した文脈を整理
-3. **実装途中ではコンパクトしない** - 文脈を維持
-4. **提案を読む** - いつやるかは人が判断
-
-## 関連
-
-- [ロングガイド](https://x.com/affaanmustafa/status/2014040193557471352) - トークン最適化
-- Memory persistence hooks - コンパクト後も状態保持
+- `COMPACT_THRESHOLD` (default: `50`)
+- `COMPACT_REMINDER_INTERVAL` (default: `25`)
+- `COMPACT_COUNTER_STALE_SECONDS` (default: `21600`)
