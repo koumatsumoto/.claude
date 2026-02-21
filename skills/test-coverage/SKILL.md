@@ -1,4 +1,10 @@
-# テストカバレッジ
+---
+name: test-coverage
+description: テストカバレッジを分析し、80%未満のファイルに対して不足分のテストを生成する。
+disable-model-invocation: true
+---
+
+# Test Coverage
 
 テストカバレッジを分析し、不足分のテストを生成:
 

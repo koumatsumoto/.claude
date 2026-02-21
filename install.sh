@@ -29,7 +29,6 @@ install_item() {
 echo "Install Claude + Codex configuration"
 install_item "$REPO_ROOT/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 install_item "$REPO_ROOT/agents" "$HOME/.claude/agents"
-install_item "$REPO_ROOT/commands" "$HOME/.claude/commands"
 install_item "$REPO_ROOT/rules" "$HOME/.claude/rules"
 install_item "$REPO_ROOT/skills" "$HOME/.claude/skills"
 

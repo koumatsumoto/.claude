@@ -1,4 +1,10 @@
-# ビルド修正
+---
+name: build-fix
+description: TypeScript とビルドエラーを段階的に修正する。1回に1エラーずつ安全に修正。
+disable-model-invocation: true
+---
+
+# Build Fix
 
 TypeScript とビルドエラーを段階的に修正:
 
@@ -26,4 +32,4 @@ TypeScript とビルドエラーを段階的に修正:
    - 残っているエラー
    - 新規発生エラー
 
-安全のため 1 回に 1 エラーずつ修正すること！
+安全のため 1 回に 1 エラーずつ修正すること。

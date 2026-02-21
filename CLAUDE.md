@@ -28,9 +28,8 @@
 
 ### リポジトリインデックス
 
-- commands: `plan`, `tdd`, `code-review`, `build-fix`, `test-coverage`, `refactor-clean`, `orchestrate`, `learn`, `commit`
 - rules: `security.md`, `coding-style.md`, `agents.md`
-- skills: `coding-standards`, `security-review`, `continuous-learning`, `strategic-compact`
+- skills: `plan`, `tdd`, `code-review`, `build-fix`, `test-coverage`, `refactor-clean`, `orchestrate`, `learn`, `commit`, `coding-standards`, `security-review`, `continuous-learning`, `strategic-compact`
 
 ### コードスタイル
 
@@ -41,7 +40,7 @@
 
 ### Git
 
-- Git Commit 時は commit コマンドを使う
+- Git Commit 時は `/commit` スキルを使う
 
 ## 成功指標
 

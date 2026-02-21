@@ -9,7 +9,7 @@ Claude Code と OpenAI Codex CLI の設定を同じリポジトリで管理す�
 
 ## 運用ポリシー
 
-- **編集元は Claude-first**: このリポジトリ内の `CLAUDE.md` / `agents/` / `commands/` / `rules/` / `skills/` を編集する
+- **編集元は Claude-first**: このリポジトリ内の `CLAUDE.md` / `agents/` / `rules/` / `skills/` を編集する
 - Codex 側の `~/.codex/AGENTS.md` は反映先。**直接編集しない**
 - 二重管理を避けるため、インストール時はリンク優先（必要ならコピーへフォールバック）
 
@@ -17,9 +17,8 @@ Claude Code と OpenAI Codex CLI の設定を同じリポジトリで管理す�
 
 - `CLAUDE.md` - 共通エージェント方針（Claude と Codex AGENTS で共用）
 - `agents/` - Claude 用エージェント定義
-- `commands/` - Claude 用コマンド定義
 - `rules/` - ルール定義
-- `skills/` - 共通スキル定義（Claude / Codex で共用）
+- `skills/` - スキル定義（スラッシュコマンド + 参照スキル。Claude / Codex で共用）
 - `config.toml` - Codex CLI 用の最小設定テンプレート
 - `install.sh` - `~/` 配下へ反映するインストールスクリプト
 
@@ -36,7 +35,6 @@ bash install.sh
 - `~/.claude/`:
   - `CLAUDE.md`
   - `agents/`
-  - `commands/`
   - `rules/`
   - `skills/`
 - `~/.codex/`:
@@ -60,7 +58,6 @@ bash install.sh
 | --- | --- |
 | `CLAUDE.md` | `~/.claude/CLAUDE.md` |
 | `agents/` | `~/.claude/agents/` |
-| `commands/` | `~/.claude/commands/` |
 | `rules/` | `~/.claude/rules/` |
 | `skills/` | `~/.claude/skills/` |
 | `CLAUDE.md` | `~/.codex/AGENTS.md` |
@@ -70,10 +67,10 @@ bash install.sh
 ## 公式仕様（参照元）
 
 - Claude Code
-  - Settings: `https://docs.anthropic.com/en/docs/claude-code/settings`
-  - Memory (`CLAUDE.md`): `https://docs.anthropic.com/en/docs/claude-code/memory`
-  - Slash Commands: `https://docs.anthropic.com/en/docs/claude-code/slash-commands`
-  - Sub-agents: `https://docs.anthropic.com/en/docs/claude-code/sub-agents`
+  - Skills: `https://code.claude.com/docs/en/skills`
+  - Sub-agents: `https://code.claude.com/docs/en/sub-agents`
+  - Memory (`CLAUDE.md`): `https://code.claude.com/docs/en/memory`
+  - Settings: `https://code.claude.com/docs/en/settings`
 - OpenAI Codex CLI
   - Config: `https://developers.openai.com/codex/config`
   - Config Reference: `https://developers.openai.com/codex/config#reference`
@@ -83,10 +80,26 @@ bash install.sh
 
 ## 既存ファイルの保護
 
-`install.sh` は同名ファイル/ディレクトリが既に存在する場合、  
+`install.sh` は同名ファイル/ディレクトリが既に存在する場合、
 `*.bak.<timestamp>` へ退避してから置換します。
 
 ## スキル一覧
+
+### スラッシュコマンド（`disable-model-invocation: true`）
+
+| スキル | 説明 |
+| --- | --- |
+| `plan` | 実装計画の作成。planner エージェントを起動 |
+| `tdd` | テスト駆動開発ワークフロー。tdd-guide エージェントを起動 |
+| `code-review` | セキュリティ/品質レビュー |
+| `build-fix` | TypeScript/ビルドエラーの段階的修正 |
+| `test-coverage` | テストカバレッジ分析と不足テスト生成 |
+| `refactor-clean` | デッドコード特定・安全な削除 |
+| `orchestrate` | エージェント逐次ワークフロー |
+| `learn` | セッションから再利用可能パターンを抽出 |
+| `commit` | Conventional Commits 形式で git commit |
+
+### 参照スキル（Claude が自動適用）
 
 | スキル | 説明 |
 | --- | --- |

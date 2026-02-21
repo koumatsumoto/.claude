@@ -1,4 +1,10 @@
-# リファクタクリーン
+---
+name: refactor-clean
+description: テスト検証つきで安全にデッドコードを特定・削除する。knip/depcheck/ts-prune で分析。
+disable-model-invocation: true
+---
+
+# Refactor Clean
 
 テスト検証つきで安全にデッドコードを特定・削除する:
 
@@ -25,4 +31,4 @@
 
 6. クリーンアップ項目のサマリを表示
 
-テストを走らせずに削除しないこと！
+テストを走らせずに削除しないこと。

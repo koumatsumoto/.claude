@@ -1,4 +1,10 @@
-# /learn - 再利用可能パターンの抽出
+---
+name: learn
+description: 現在のセッションを分析し、再利用可能パターンを抽出してスキルとして保存する。
+disable-model-invocation: true
+---
+
+# Learn
 
 現在のセッションを分析し、スキルとして保存すべきパターンを抽出する。
 
@@ -33,9 +39,14 @@
 
 ## 出力形式
 
-`~/.claude/skills/learned/[pattern-name].md` に作成:
+`~/.claude/skills/learned/[pattern-name]/SKILL.md` に作成:
 
 ```markdown
+---
+name: [pattern-name]
+description: [When this pattern applies and what it solves]
+---
+
 # [Descriptive Pattern Name]
 
 **Extracted:** [Date]
@@ -52,10 +63,6 @@
 ## Example
 
 [Code example if applicable]
-
-## When to Use
-
-[Trigger conditions - what should activate this skill]
 ```
 
 ## 進め方

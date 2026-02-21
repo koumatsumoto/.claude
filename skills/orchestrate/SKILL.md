@@ -1,10 +1,17 @@
-# オーケストレーションコマンド
+---
+name: orchestrate
+description: 複雑なタスク向けのエージェント逐次ワークフロー。feature/bugfix/refactor/security/custom から選択。
+disable-model-invocation: true
+argument-hint: "[workflow-type] [task-description]"
+---
+
+# Orchestrate
 
 複雑なタスク向けの、エージェント逐次ワークフロー。
 
 ## 使い方
 
-`/orchestrate [workflow-type] [task-description]`
+`/orchestrate $ARGUMENTS`
 
 ## ワークフロー種別
 
@@ -38,6 +45,14 @@ architect -> code-reviewer -> tdd-guide
 
 ```text
 security-reviewer -> code-reviewer -> architect
+```
+
+### custom
+
+カスタムエージェント列:
+
+```text
+/orchestrate custom "architect,tdd-guide,code-reviewer" "Redesign caching layer"
 ```
 
 ## 実行パターン
@@ -77,75 +92,6 @@ security-reviewer -> code-reviewer -> architect
 [Suggested next steps]
 ```
 
-## 例: feature ワークフロー
-
-```text
-/orchestrate feature "Add user authentication"
-```
-
-実行内容:
-
-1. **Planner エージェント**
-   - 要件分析
-   - 実装計画作成
-   - 依存関係の特定
-   - 出力: `HANDOFF: planner -> tdd-guide`
-
-2. **TDD Guide エージェント**
-   - planner の引き継ぎを読む
-   - テストを先に書く
-   - テストが通る実装
-   - 出力: `HANDOFF: tdd-guide -> code-reviewer`
-
-3. **Code Reviewer エージェント**
-   - 実装のレビュー
-   - 問題点チェック
-   - 改善提案
-   - 出力: `HANDOFF: code-reviewer -> security-reviewer`
-
-4. **Security Reviewer エージェント**
-   - セキュリティ監査
-   - 脆弱性確認
-   - 最終承認
-   - 出力: 最終レポート
-
-## 最終レポート形式
-
-```text
-ORCHESTRATION REPORT
-====================
-Workflow: feature
-Task: Add user authentication
-Agents: planner -> tdd-guide -> code-reviewer -> security-reviewer
-
-SUMMARY
--------
-[One paragraph summary]
-
-AGENT OUTPUTS
--------------
-Planner: [summary]
-TDD Guide: [summary]
-Code Reviewer: [summary]
-Security Reviewer: [summary]
-
-FILES CHANGED
--------------
-[List all files modified]
-
-TEST RESULTS
-------------
-[Test pass/fail summary]
-
-SECURITY STATUS
----------------
-[Security findings]
-
-RECOMMENDATION
---------------
-[SHIP / NEEDS WORK / BLOCKED]
-```
-
 ## 並列実行
 
 独立チェックは並列で実行:
@@ -164,20 +110,38 @@ Run simultaneously:
 Combine outputs into single report
 ```
 
-## 引数
-
-$ARGUMENTS:
-
-- `feature <description>` - フル機能ワークフロー
-- `bugfix <description>` - バグ修正ワークフロー
-- `refactor <description>` - リファクタリング
-- `security <description>` - セキュリティレビュー
-- `custom <agents> <description>` - カスタムエージェント列
-
-## カスタムワークフロー例
+## 最終レポート形式
 
 ```text
-/orchestrate custom "architect,tdd-guide,code-reviewer" "Redesign caching layer"
+ORCHESTRATION REPORT
+====================
+Workflow: [type]
+Task: [description]
+Agents: [agent chain]
+
+SUMMARY
+-------
+[One paragraph summary]
+
+AGENT OUTPUTS
+-------------
+[Each agent's summary]
+
+FILES CHANGED
+-------------
+[List all files modified]
+
+TEST RESULTS
+------------
+[Test pass/fail summary]
+
+SECURITY STATUS
+---------------
+[Security findings]
+
+RECOMMENDATION
+--------------
+[SHIP / NEEDS WORK / BLOCKED]
 ```
 
 ## ヒント
