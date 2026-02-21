@@ -1,7 +1,6 @@
 ---
 name: commit
 description: Use when creating a git commit from current changes with a Conventional Commits message.
-disable-model-invocation: true
 argument-hint: "[message]"
 ---
 

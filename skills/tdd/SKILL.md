@@ -1,7 +1,6 @@
 ---
 name: tdd
 description: Use when implementing features or fixes with a test-first workflow (RED -> GREEN -> REFACTOR).
-disable-model-invocation: true
 argument-hint: "[task-description]"
 ---
 

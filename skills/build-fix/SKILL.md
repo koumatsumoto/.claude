@@ -1,7 +1,6 @@
 ---
 name: build-fix
 description: Use when TypeScript or build errors must be resolved safely, one error at a time.
-disable-model-invocation: true
 ---
 
 # Build Fix

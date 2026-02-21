@@ -1,7 +1,6 @@
 ---
 name: plan
 description: Use when requirements are ambiguous or changes are high-impact and you need a reviewed implementation plan before coding.
-disable-model-invocation: true
 argument-hint: "[task-description]"
 ---
 
