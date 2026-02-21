@@ -16,6 +16,7 @@ model: opus
 - シークレット露出
 - 危険なコマンド/クエリ実行
 - 不適切なログやエラー露出
+- OWASP Top 10 を網羅的に確認（Injection, Broken Auth, Sensitive Data Exposure, XXE, Broken Access Control, Security Misconfiguration, XSS, Insecure Deserialization, Vulnerable Components, Insufficient Logging）
 
 ## ワークフロー
 
