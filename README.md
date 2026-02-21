@@ -12,6 +12,9 @@ Claude Code と OpenAI Codex CLI の設定を同じリポジトリで管理す�
 - **編集元は Claude-first**: このリポジトリ内の `CLAUDE.md` / `agents/` / `rules/` / `skills/` を編集する
 - Codex 側の `~/.codex/AGENTS.md` は反映先。**直接編集しない**
 - 二重管理を避けるため、インストール時はリンク優先（必要ならコピーへフォールバック）
+- サブエージェントは最小構成を維持し、不要になったものは削除する
+- 1 タスク 1 主担当を基本にし、独立検証のみ並列化する
+- Codex CLI は `agents/` を直接読まないため、`AGENTS.md` / `rules` / `skills` を正とする
 
 ## ディレクトリ構造
 
@@ -64,6 +67,19 @@ bash install.sh
 | `config.toml` | `~/.codex/config.toml` |
 | `skills/` | `~/.agents/skills/` |
 
+## エージェント運用（2026-02 時点）
+
+`agents/` は Claude Code のサブエージェント定義。現在は次の 6 つに集約:
+
+- `planner` - 実装前の計画化
+- `architect` - 設計判断とトレードオフ整理
+- `build-error-resolver` - ビルド/型エラー復旧
+- `code-reviewer` - 差分レビュー
+- `security-reviewer` - セキュリティレビュー
+- `refactor-cleaner` - 安全なクリーンアップ
+
+運用詳細は `rules/agents.md` を参照。
+
 ## 公式仕様（参照元）
 
 - Claude Code
@@ -72,11 +88,12 @@ bash install.sh
   - Memory (`CLAUDE.md`): `https://code.claude.com/docs/en/memory`
   - Settings: `https://code.claude.com/docs/en/settings`
 - OpenAI Codex CLI
-  - Config: `https://developers.openai.com/codex/config`
-  - Config Reference: `https://developers.openai.com/codex/config#reference`
-  - AGENTS.md: `https://developers.openai.com/codex/customization#agentsmd`
-  - Skills: `https://developers.openai.com/codex/customization#skills`
   - CLI Overview: `https://developers.openai.com/codex/cli`
+  - Config Basics: `https://developers.openai.com/codex/config-basic`
+  - Config Reference: `https://developers.openai.com/codex/config-reference`
+  - Rules: `https://developers.openai.com/codex/rules`
+  - AGENTS.md: `https://developers.openai.com/codex/guides/agents-md`
+  - Skills: `https://developers.openai.com/codex/skills`
 
 ## 既存ファイルの保護
 
@@ -89,13 +106,13 @@ bash install.sh
 
 | スキル | 説明 |
 | --- | --- |
-| `plan` | 実装計画の作成。planner エージェントを起動 |
+| `plan` | 実装計画の作成 |
 | `tdd` | テスト駆動開発ワークフロー |
 | `code-review` | セキュリティ/品質レビュー |
 | `build-fix` | TypeScript/ビルドエラーの段階的修正 |
 | `test-coverage` | テストカバレッジ分析と不足テスト生成 |
 | `refactor-clean` | デッドコード特定・安全な削除 |
-| `orchestrate` | エージェント逐次ワークフロー |
+| `orchestrate` | 複数エージェントの段階実行ワークフロー |
 | `learn` | セッションから再利用可能パターンを抽出 |
 | `commit` | Conventional Commits 形式で git commit |
 
