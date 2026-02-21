@@ -19,8 +19,7 @@ description: Use when implementing or reviewing authentication, user input, secr
 
 1. データ分類と信頼境界を特定する
 2. `references/web-app-checklist.md` を適用する
-3. ブロックチェーン関連なら `references/blockchain-solana.md` を追加で適用する
-4. 指摘を重大度順に整理して報告する
+3. 指摘を重大度順に整理して報告する
 
 ## Severity Policy
 
@@ -50,5 +49,4 @@ description: Use when implementing or reviewing authentication, user input, secr
 ## References
 
 - `references/web-app-checklist.md` - Web アプリ共通チェック
-- `references/blockchain-solana.md` - Solana 文脈でのみ利用
 - `../../rules/security.md` - リポジトリ全体の既定ルール
